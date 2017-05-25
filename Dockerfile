@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && php -r "unlink('composer-setup.php');" \
     && COMPOSER_ALLOW_SUPERUSER=1 composer global require fxp/composer-asset-plugin \
     && apt-get purge -y libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -20,3 +21,5 @@ RUN apt-get update && apt-get install -y \
         libicu-dev \
         libcurl4-gnutls-dev \
     && apt-get clean
+COPY ./ /var/www/html/
+RUN COMPOSER_ALLOW_SUPERUSER=1 composer install

@@ -104,19 +104,9 @@
           "contextDir": "${CONTEXT_DIR}"
         },
         "strategy": {
-          "type": "Source",
-          "sourceStrategy": {
-            "from": {
-              "kind": "ImageStreamTag",
-              "namespace": "${NAMESPACE}",
-              "name": "php:7.0"
-            },
-            "env":  [
-              {
-                "name": "COMPOSER_MIRROR",
-                "value": "${COMPOSER_MIRROR}"
-              }
-            ]
+          "type": "docker",
+          "dockerStrategy": {
+            "dockerfilePath": ".openshift/Dockerfile"
           }
         },
         "output": {
@@ -139,9 +129,6 @@
             }
           }
         ],
-        "postCommit": {
-          "script": "./lib/Cake/Console/cake test app AllTests"
-        }
       }
     },
     {

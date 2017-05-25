@@ -18,11 +18,11 @@ RUN apt-get update && apt-get install -y \
         libpng12-dev \
         libicu-dev \
         libcurl4-gnutls-dev \
-    && apt-get clean
+    && apt-get clean \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');" \
     && if [ ! -z ${GITHUB_OAUTH_TOKEN} ]; then composer config -g github-oauth.github.com  $GITHUB_OAUTH_TOKEN ; fi \
-    && COMPOSER_ALLOW_SUPERUSER=1 composer global require fxp/composer-asset-plugin \
+    && COMPOSER_ALLOW_SUPERUSER=1 composer global require fxp/composer-asset-plugin
 COPY ./ /var/www/html/
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader

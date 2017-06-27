@@ -106,7 +106,7 @@
         "strategy": {
           "type": "docker",
           "dockerStrategy": {
-            "dockerfilePath": ".openshift/Dockerfile"
+            "dockerfilePath": "Dockerfile"
           }
         },
         "output": {
